@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl} from  '@angular/forms';
 import { SearchserviceService } from '../searchservice.service';
 import { query } from '@angular/animations';
+import { Subscription } from 'rxjs';
 
 
 export interface videoType{
@@ -15,27 +16,29 @@ export interface videoType{
   styleUrls: ['./home.component.css']
 })
 
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit,OnDestroy {
 
   constructor(private searchService:SearchserviceService) { }
 
   ngOnInit(): void {
   }
-  mode=false;
+  
   toggleMode(){
     document.body.classList.toggle('dark-theme');
     this.mode=!this.mode;
   }
-
+  mode=false;
   searchName=new FormControl('');
   Data:any;
   videos:Array<videoType>=[];
+  subscription!: Subscription;
+  selectedVideo!:videoType;
 
   onSubmit(){
     
     if(this.searchName.value!=null && this.searchName.value!=""){
       
-      this.searchService.fetchResult(this.searchName.value).subscribe({
+      this.subscription=this.searchService.fetchResult(this.searchName.value).subscribe({
         next:(data)=>{
           this.Data=data;
           this.makeData();
@@ -61,6 +64,15 @@ export class HomeComponent implements OnInit {
       
       
     });
+ }
+ selectVideo(index:number){
+    this.selectedVideo=this.videos[index].videoId;
+    console.log(this.selectedVideo);
+ }
+
+ 
+ ngOnDestroy(): void {
+   this.subscription.unsubscribe();
  }
 
 }

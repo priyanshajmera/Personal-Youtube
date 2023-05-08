@@ -22,9 +22,17 @@
           </div>
                   
       </div>
-    
+      
+      <div *ngIf="selectedVideo" style="margin: auto;
+      width: 50%;
+      padding: 10px;">
+      <iframe id="ytplayer" type="text/html" width="640" height="360"
+      [src]="'https://www.youtube.com/embed/'+selectedVideo+'?autoplay=1' | safe"
+      frameborder="0"></iframe>
+
+      </div>
     <div class="row">
-      <div class="col-sm-3" *ngFor="let video of videos.slice(1,12)">
+      <div class="col-sm-3" *ngFor="let video of videos.slice(1,12);let index=index">
         
           
         <div class="card" style="width: 18rem;">
@@ -32,11 +40,15 @@
           <div class="card-body">
             <p class="card-text">{{ video.desc.length>50 ? video.desc.substring(0,50):video.desc}} ...</p>
           </div>
+          <button type="button" target="_blank" class="btn btn-primary float-right" (click)="selectVideo(index)">Play</button>
         </div>
 
       </div>
 
     </div>
+
+    
+    
       
        
       
