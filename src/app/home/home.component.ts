@@ -40,9 +40,10 @@ export class HomeComponent implements OnInit,OnDestroy {
       
       this.subscription=this.searchService.fetchResult(this.searchName.value).subscribe({
         next:(data)=>{
+          
           this.Data=data;
           this.makeData();
-          console.log(this.videos.length);
+          
 
         },
         error:err=>console.log(err)
@@ -55,11 +56,13 @@ export class HomeComponent implements OnInit,OnDestroy {
     }
   }
  makeData(){
+    
     this.Data.items.forEach((item: any)=> {
       
       let videoId=item.id.videoId;
       let thumbnailUrl=item.snippet.thumbnails.high.url;
       let desc=item.snippet.title;
+      
       this.videos.push({'videoId':videoId,'thumbnailUrl':thumbnailUrl,'desc':desc});
       
       
@@ -67,12 +70,13 @@ export class HomeComponent implements OnInit,OnDestroy {
  }
  selectVideo(index:number){
     this.selectedVideo=this.videos[index].videoId;
-    console.log(this.selectedVideo);
+    
  }
 
  
  ngOnDestroy(): void {
    this.subscription.unsubscribe();
+   
  }
 
 }
