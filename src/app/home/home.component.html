@@ -1,31 +1,43 @@
 <div class="container">
    
         
-            <div class="my-sm-10">
-                <button class="btn btn-primary" (click)="toggleMode()">{{ mode? "Light":"Dark" }}</button>
+   <div class="gy-3">
+      <button class="btn btn-primary" (click)="toggleMode()">{{ mode? "Light":"Dark" }}</button>
               
-            </div>
+    </div>
 
-            <form>
-                <div class="row">
-                  <div class="col-9">
-                    <input 
-                    type="search" 
-                    id="form" 
-                    class="form-control mr-sm-1" 
-                    placeholder="Search">
-                  </div>
-                  <div class="col-3">
-                    <button type="submit" class="btn btn-outline-success my-2 my-sm-0">
-                        <i class="fa fa-search"></i>
-                    </button>
-                  </div>
+      <div class="row">
+          <div class="col-9">
+             <input 
+                type="text" 
+                id="searchName" 
+                class="form-control mr-sm-1"
+                [formControl]="searchName" 
+                placeholder="Search">
+          </div>
+          <div class="col-3">
+              <button type="button" (click)="onSubmit()" class="btn btn-outline-success my-2 my-sm-0">
+                  <i class="fa fa-search"></i>
+              </button>
+          </div>
                   
-                </div>
-            </form>
-                
-                  
-             
+      </div>
+    
+    <div class="row">
+      <div class="col-sm-3" *ngFor="let video of videos.slice(1,12)">
+        
+          
+        <div class="card" style="width: 18rem;">
+          <img class="card-img-top" [src]="video.thumbnailUrl" alt="Card image cap">
+          <div class="card-body">
+            <p class="card-text">{{ video.desc.length>50 ? video.desc.substring(0,50):video.desc}} ...</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+      
        
-  
+      
 </div>
