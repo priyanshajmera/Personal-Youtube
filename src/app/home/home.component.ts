@@ -35,6 +35,9 @@ export class HomeComponent implements OnInit,OnDestroy {
   selectedVideo!:videoType;
 
   onSubmit(){
+    if(this.videos.length>0){
+      this.videos=[];
+    }
     
     if(this.searchName.value!=null && this.searchName.value!=""){
       
@@ -64,12 +67,14 @@ export class HomeComponent implements OnInit,OnDestroy {
       let desc=item.snippet.title;
       
       this.videos.push({'videoId':videoId,'thumbnailUrl':thumbnailUrl,'desc':desc});
+     
       
       
     });
  }
  selectVideo(index:number){
-    this.selectedVideo=this.videos[index].videoId;
+    this.selectedVideo=this.videos[index+1].videoId;
+    console.log(this.selectedVideo);
     
  }
 
